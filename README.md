@@ -1,6 +1,12 @@
 # localizador
 Proyecto en python con django
 
+#instalar dependencias
+pip install -r requirements.txt
+
+#iniciar proyecto
+python manage.py runserver
+
 $ pip install mysqlclienta$ brew install mysql pkg-config
 
 
