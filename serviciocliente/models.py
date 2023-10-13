@@ -1,4 +1,6 @@
 from django.db import models
+
+from categorias.models import Categoria
 CHOICES= (
 ('GUATEMALA', 'GUATEMALA'),
 ('EL SALVADOR', 'EL SALVADOR'),
@@ -9,12 +11,10 @@ CHOICES= (
 )
 
 class ServicioCliente(models.Model):
+    
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, verbose_name='Categoria')
     telefono = models.CharField(
         null=True, blank=True, max_length=100, verbose_name=("Télefono")
-    )
-
-    checkin = models.CharField(
-        null=True, blank=True, max_length=50, verbose_name=("Agregado")
     )
 
     restaurante = models.CharField(null=True, blank=True, max_length=50, verbose_name=("Restaurante"))
@@ -24,9 +24,15 @@ class ServicioCliente(models.Model):
     )
 
     pais = models.CharField(max_length=50, choices=CHOICES, default=None,blank=True, null=True, verbose_name=("País"))
+    
+    comentario = models.CharField(
+        null=True, blank=True, max_length=100, verbose_name=("Comentario")
+    )
+
+    usuario = models.CharField(max_length=50, default=None,blank=True, null=True, verbose_name=("Usuario"))
 
     estado = models.BooleanField(default=True, verbose_name=("Estado"))
-
+    
     updated_at = models.DateTimeField(auto_now=True, verbose_name=("actualizacion"))
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=("Creación"))

@@ -1,0 +1,112 @@
+{% extends "admin/change_list.html" %} {% block content_title %}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<script
+src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+<h1>Noise Filter 200</h1>
+{% endblock %} {% block result_list %}
+<style>
+  .results table {
+    counter-reset: rowNumber;
+  }
+
+  .results tbody tr {
+    counter-increment: rowNumber;
+  }
+
+  .results tbody td.rank::before {
+    content: counter(rowNumber);
+  }
+</style>
+<div class="results">
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>
+          <div class="text">Restaurante</div>
+        </th>
+        <th>
+          <div class="text">
+            <a href="#">Hora Inicio</a>
+          </div>
+        </th>
+
+        <th>
+          <div class="text">
+            <a href="#">Hora de cierre</a>
+          </div>
+        </th>
+
+        <th>
+          <div class="text">
+            <a href="#">Colonia</a>
+          </div>
+        </th>
+
+        <th>
+          <div class="text">
+            <a href="#">Descripcion</a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in coloniasgt %}
+      <tr 
+      {% if row.horario_salida > vientehoras and row.horario_salida <= vientehoras2 %} style="background: yellow; color: black;"
+      {% elif row.horario_salida > vientehoras2 and row.horario_salida <= vientehoras3%} style="background: orange; color: white;"
+      {% elif row.horario_salida > vientehoras3 %} style="background: red; color: white;"
+      {% else %}
+      {% endif %}
+      >
+        <td class="">
+            {% if row.horario_salida > vientehoras %}
+            <a  style="color: black;"
+                href="/admin/colonia/colonia/{{row.id}}/change/">
+                {{ row.restuarante }}
+            </a
+            {% elif row.horario_salida > vientehoras2  %}
+            <a  style="color: white;"
+                href="/admin/colonia/colonia/{{row.id}}/change/">
+                {{ row.restuarante }}
+            </a
+
+            {% elif row.horario_salida > vientehoras3 %}
+            <a  style="color: white;"
+                href="/admin/colonia/colonia/{{row.id}}/change/">
+                {{ row.restuarante }}
+            </a
+            {% else %}
+            <a  href="/admin/colonia/colonia/{{row.id}}/change/">
+                {{ row.restuarante }}
+            </a
+            {% endif %}
+        </td>
+        <td class="">{{ row.horario_entrada}}</td>
+        <td class="">{{ row.horario_salida}}</td>
+        <td class="">{{ row.colonia}}</td>
+        <td class="">{{ row.descripcion}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable(  {
+    "searching": true,
+    "info": false,
+    "lengthChange": false,
+    "paging": false, 
+    "oLanguage": {
+    "sSearch": "Buscar"
+ }
+  });
+} );
+</script>
+{% endblock %}

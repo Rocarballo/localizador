@@ -19,7 +19,7 @@ from django.urls import path
 from django.views.generic.base import RedirectView
 
 
-admin.site.site_header = 'Localizador general'
+admin.site.site_header = 'MYSYSTEM general'
 admin.site.site_title = 'Administración GT'
 admin.site.index_title = 'Localizador'
 

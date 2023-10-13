@@ -15,6 +15,9 @@ $ pip install mysqlclient
 
 $ pip install django-daterangefilter
 
+
+$pip install django-liststyle==0.2b
+
 credenciales
 admin
 1234

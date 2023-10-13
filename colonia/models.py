@@ -1,13 +1,13 @@
 from django.db import models
 
-class Restaurante(models.Model):
+class Colonia(models.Model):
     restuarante = models.CharField(
         null=True, blank=True, max_length=100, verbose_name=("Restaurante")
     )
 
-    horario = models.CharField(
-        null=True, blank=True, max_length=50, verbose_name=("Horario")
-    )
+    horario_entrada = models.TimeField(auto_now=False, auto_now_add=False, verbose_name=("Hora inicio"))
+
+    horario_salida = models.TimeField(auto_now=False, auto_now_add=False, verbose_name=("Hora fin"))
 
     zona = models.CharField(null=True, blank=True, max_length=50, verbose_name=("Zona"))
 
@@ -26,14 +26,14 @@ class Restaurante(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=("Creación"))
 
     class Meta:
-        verbose_name = "Restaurante"
-        verbose_name_plural = "Restaurantes"
-        default_related_name = "Restaurante"
-        db_table = "restaurate"
+        verbose_name = "Colonia"
+        verbose_name_plural = "Colonias"
+        default_related_name = "Colonia"
+        db_table = "colonia"
         ordering = ["-created_at"]
 
     def __unicode__(self):
-        """Restaurante"""
+        """Colonia"""
         return str(self.restuarante)
 
     def __str__(self):

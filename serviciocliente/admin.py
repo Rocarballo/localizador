@@ -16,10 +16,28 @@ class Exportar(resources.ModelResource):
 @admin.register(ServicioCliente)
 class ServicioClienteAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
     # Campos a mostrar en la vista de bodequero
-    list_display = ["telefono", "checkin", "restaurante", "pais", "estado"]
+    # def queryset(self, request, queryset):
+    #     qs = ServicioCliente.objects.filter(estado=True)
+    #     return qs
+    
+    def get_queryset(self, request):
+        if(request.GET.get('estado__exact', 0) == '0'):
+            return ServicioCliente.objects.filter(estado=False)
+        qs = ServicioCliente.objects.filter(estado=True)
+        return qs.filter(estado=1)
+    
+    list_display = (
+        "telefono", 
+        "restaurante", 
+        "pais", 
+        "categoria", 
+        "comentario",
+        "usuario",
+        "estado"
+    )
 
     # Filtro que me permite generar reporte por fechas
-    list_filter = ("checkin", "pais", "estado", ("created_at", DateRangeFilter))
+    list_filter = ("pais", "estado","categoria", ("created_at", DateRangeFilter))
 
     # Funcion que me permite export a los diferentes formatos
     resource_class = Exportar
@@ -27,7 +45,18 @@ class ServicioClienteAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
     # Encabezado el sitio
     date_hierarchy = "created_at"
 
-    list_editable = ["checkin", "restaurante"]
+    list_editable = [ "comentario", "usuario", "estado"]
 
     # Funcion que permite buscar por los atributos
-    search_fields = ["telefono", "checkin", "restaurante"]
+    search_fields = ["telefono", "restaurante", "estado"]
+
+    class Media:
+        css = {
+            'all': ('css/fancy.css',)
+        }
+    
+    actions=['completar']
+    
+    def completar(self, request, queryset):
+        queryset.update(estado=False)
+        
