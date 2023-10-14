@@ -11,7 +11,7 @@ Tener en cuanta tener instalado python, pip  y la base de datos MYSQL
 ### PASO 2; Generar las migraciones ejectutando los siguientes comandos
 ```
  python manage.py makemigrations
- $python manage.py migrate
+ python manage.py migrate
 ```
 
 ### PASO 3; Crear un superusuario, completando lo que require al ejectur el comando
