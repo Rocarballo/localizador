@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'liststyle',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,8 +45,7 @@ INSTALLED_APPS = [
     'categorias',
     'serviciocliente',
     'import_export',
-    'rangefilter',
-    'liststyle'
+    'rangefilter'
 ]
 
 MIDDLEWARE = [
