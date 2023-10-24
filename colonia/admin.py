@@ -5,7 +5,7 @@ from import_export.admin import ImportExportActionModelAdmin
 from import_export import resources
 from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 from django.utils.html import format_html
-from liststyle import ListStyleAdminMixin
+from liststyle.admin import ListStyleAdminMixin
 
 # Funcion para exportar datos a formatos(excel, html, json)
 # Permite genera un reporte de los datos seleccionados
