@@ -3,36 +3,31 @@ from import_export.admin import ImportExportActionModelAdmin
 from import_export import resources
 from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 
-from serviciocliente.models import ServicioCliente
+from trafico.models import Trafico
 
 
 # Funcion para exportar datos a formatos(excel, html, json)
 # Permite genera un reporte de los datos seleccionados
 class Exportar(resources.ModelResource):
     class Meta:
-        model = ServicioCliente
+        model = Trafico
 
 
-@admin.register(ServicioCliente)
-class ServicioClienteAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
-    # Campos a mostrar en la vista de bodequero
-    # def queryset(self, request, queryset):
-    #     qs = ServicioCliente.objects.filter(estado=True)
-    #     return qs
+@admin.register(Trafico)
+class TraficoClienteAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        context.update({
+        'show_delete': False, # Here
+        # 'show_save': False,
+        'show_save_and_continue': False,
+        })
+        return super().render_change_form(request, context, add, change, form_url, obj)
     
     def get_queryset(self, request):
         if(request.GET.get('estado__exact', 0) == '0'):
-            return ServicioCliente.objects.filter(estado=False)
-        qs = ServicioCliente.objects.filter(estado=True)
+            return Trafico.objects.filter(estado=False)
+        qs = Trafico.objects.filter(estado=True)
         return qs.filter(estado=1)
-    
-    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
-        context.update({
-            'show_delete': False, # Here
-            # 'show_save': False,
-            'show_save_and_continue': False,
-        })
-        return super().render_change_form(request, context, add, change, form_url, obj)
     
     list_display = (
         "telefono", 

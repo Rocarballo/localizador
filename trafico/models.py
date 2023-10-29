@@ -1,6 +1,6 @@
 from django.db import models
 
-from categorias.models import Categoria
+from categoriatrafico.models import CategoriaTrafico
 CHOICES= (
 ('GUATEMALA', 'GUATEMALA'),
 ('EL SALVADOR', 'EL SALVADOR'),
@@ -10,9 +10,9 @@ CHOICES= (
 ('PANAMA', 'PANAMA'),
 )
 
-class ServicioCliente(models.Model):
+class Trafico(models.Model):
     
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, verbose_name='Categoria')
+    categoria = models.ForeignKey(CategoriaTrafico, on_delete=models.CASCADE, null=True, verbose_name='Categoria')
     telefono = models.CharField(
         null=True, blank=True, max_length=100, verbose_name=("Télefono")
     )
@@ -38,10 +38,10 @@ class ServicioCliente(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=("Creación"))
 
     class Meta:
-        verbose_name = "Servicio al Cliente"
-        verbose_name_plural = "Servicio Clientes"
-        default_related_name = "ServicioCliente"
-        db_table = "ServicioCliente"
+        verbose_name = "Tráfico"
+        verbose_name_plural = "Tráfico"
+        default_related_name = "Tráfico"
+        db_table = "trafico"
         ordering = ["-created_at"]
     
     def delete(self):
@@ -49,7 +49,7 @@ class ServicioCliente(models.Model):
         self.save()
 
     def __unicode__(self):
-        """ServicioCliente"""
+        """Trafico"""
         return str(self.restuarante)
 
     def __str__(self):
