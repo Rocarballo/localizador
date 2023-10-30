@@ -19,9 +19,9 @@ from django.urls import path
 from django.views.generic.base import RedirectView
 
 
-admin.site.site_header = 'MYSYSTEM general'
-admin.site.site_title = 'Administración GT'
-admin.site.index_title = 'Localizador'
+admin.site.site_header = 'JZ CallGeoAssist'
+admin.site.site_title = 'JZ CallGeoAssist'
+admin.site.index_title = 'JZ CallGeoAssist'
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/admin')),
